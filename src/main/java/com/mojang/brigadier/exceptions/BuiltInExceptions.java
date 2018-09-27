@@ -39,6 +39,7 @@ public class BuiltInExceptions implements BuiltInExceptionProvider {
     private static final SimpleCommandExceptionType DISPATCHER_UNKNOWN_ARGUMENT = new SimpleCommandExceptionType(new LiteralMessage("Incorrect argument for command"));
     private static final SimpleCommandExceptionType DISPATCHER_EXPECTED_ARGUMENT_SEPARATOR = new SimpleCommandExceptionType(new LiteralMessage("Expected whitespace to end one argument, but found trailing data"));
     private static final DynamicCommandExceptionType DISPATCHER_PARSE_EXCEPTION = new DynamicCommandExceptionType(message -> new LiteralMessage("Could not parse command: " + message));
+    private static final SimpleCommandExceptionType DISPATCHER_EXECUTE_MULTIPLE_RESULT = new SimpleCommandExceptionType(new LiteralMessage("Command produced multiple results"));
 
     @Override
     public Dynamic2CommandExceptionType doubleTooLow() {
@@ -173,5 +174,10 @@ public class BuiltInExceptions implements BuiltInExceptionProvider {
     @Override
     public DynamicCommandExceptionType dispatcherParseException() {
         return DISPATCHER_PARSE_EXCEPTION;
+    }
+
+    @Override
+    public SimpleCommandExceptionType dispatcherMultipleResult() {
+        return DISPATCHER_EXECUTE_MULTIPLE_RESULT;
     }
 }

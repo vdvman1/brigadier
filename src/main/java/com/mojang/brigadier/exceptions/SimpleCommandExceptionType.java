@@ -5,6 +5,7 @@ package com.mojang.brigadier.exceptions;
 
 import com.mojang.brigadier.ImmutableStringReader;
 import com.mojang.brigadier.Message;
+import com.mojang.brigadier.context.StringRange;
 
 public class SimpleCommandExceptionType implements CommandExceptionType {
     private final Message message;
@@ -19,6 +20,10 @@ public class SimpleCommandExceptionType implements CommandExceptionType {
 
     public CommandSyntaxException createWithContext(final ImmutableStringReader reader) {
         return new CommandSyntaxException(this, message, reader.getString(), reader.getCursor());
+    }
+
+    public CommandSyntaxException createWithContext(final String input, final StringRange range) {
+        return new CommandSyntaxException(this, message, input, range.getEnd());
     }
 
     @Override

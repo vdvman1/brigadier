@@ -215,6 +215,7 @@ public class CommandDispatcher<S> {
             }
         }
 
+        boolean setResult = false;
         int result = 0;
         int successfulForks = 0;
         boolean forked = false;
@@ -262,7 +263,12 @@ public class CommandDispatcher<S> {
                     foundCommand = true;
                     try {
                         final int value = context.getCommand().run(context);
-                        result += value;
+                        if(setResult && !forked) {
+                            // TODO: Should this be a different type of exception?
+                            throw CommandSyntaxException.BUILT_IN_EXCEPTIONS.dispatcherMultipleResult().createWithContext(context.getInput(), context.getRange());
+                        }
+                        result = value;
+                        setResult = true;
                         consumer.onCommandComplete(context, true, value);
                         successfulForks++;
                     } catch (final CommandSyntaxException ex) {

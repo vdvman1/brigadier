@@ -57,4 +57,6 @@ public interface BuiltInExceptionProvider {
     SimpleCommandExceptionType dispatcherExpectedArgumentSeparator();
 
     DynamicCommandExceptionType dispatcherParseException();
+
+    SimpleCommandExceptionType dispatcherMultipleResult();
 }
