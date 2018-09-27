@@ -8,6 +8,7 @@ import com.mojang.brigadier.context.StringRange;
 import com.mojang.brigadier.suggestion.Suggestion;
 import com.mojang.brigadier.suggestion.Suggestions;
 import com.mojang.brigadier.tree.LiteralCommandNode;
+import com.mojang.brigadier.value.IntValue;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -274,7 +275,7 @@ public class CommandSuggestionsTest {
                 )
                 .then(
                     literal("run")
-                        .executes(c -> 0)
+                        .executes(c -> IntValue.ZERO)
                 )
         );
 
@@ -303,7 +304,7 @@ public class CommandSuggestionsTest {
                 )
                 .then(
                     literal("run")
-                        .executes(c -> 0)
+                        .executes(c -> IntValue.ZERO)
                 )
         );
 

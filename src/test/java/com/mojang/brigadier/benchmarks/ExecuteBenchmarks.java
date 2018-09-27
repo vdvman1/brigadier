@@ -7,6 +7,7 @@ import com.google.common.collect.Lists;
 import com.mojang.brigadier.CommandDispatcher;
 import com.mojang.brigadier.ParseResults;
 import com.mojang.brigadier.exceptions.CommandSyntaxException;
+import com.mojang.brigadier.value.IntValue;
 import org.openjdk.jmh.annotations.Benchmark;
 import org.openjdk.jmh.annotations.BenchmarkMode;
 import org.openjdk.jmh.annotations.Mode;
@@ -29,7 +30,7 @@ public class ExecuteBenchmarks {
     @Setup
     public void setup() {
         dispatcher = new CommandDispatcher<>();
-        dispatcher.register(literal("command").executes(c -> 0));
+        dispatcher.register(literal("command").executes(c -> IntValue.ZERO));
         dispatcher.register(literal("redirect").redirect(dispatcher.getRoot()));
         dispatcher.register(literal("fork").fork(dispatcher.getRoot(), o -> Lists.newArrayList(new Object(), new Object(), new Object())));
         simple = dispatcher.parse("command", new Object());

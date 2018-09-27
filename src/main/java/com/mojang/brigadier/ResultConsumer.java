@@ -4,8 +4,9 @@
 package com.mojang.brigadier;
 
 import com.mojang.brigadier.context.CommandContext;
+import com.mojang.brigadier.value.Value;
 
 @FunctionalInterface
 public interface ResultConsumer<S> {
-    void onCommandComplete(CommandContext<S> context, boolean success, int result);
+    void onCommandComplete(CommandContext<S> context, boolean success, Value result);
 }

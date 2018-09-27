@@ -16,6 +16,8 @@ import com.mojang.brigadier.suggestion.SuggestionsBuilder;
 import com.mojang.brigadier.tree.CommandNode;
 import com.mojang.brigadier.tree.LiteralCommandNode;
 import com.mojang.brigadier.tree.RootCommandNode;
+import com.mojang.brigadier.value.Value;
+import com.mojang.brigadier.value.IntValue;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -131,7 +133,7 @@ public class CommandDispatcher<S> {
      *
      * @param input a command string to parse &amp; execute
      * @param source a custom "source" object, usually representing the originator of this command
-     * @return a numeric result from a "command" that was performed
+     * @return a result from a "command" that was performed
      * @throws CommandSyntaxException if the command failed to parse or execute
      * @throws RuntimeException if the command failed to execute and was not handled gracefully
      * @see #parse(String, Object)
@@ -139,7 +141,7 @@ public class CommandDispatcher<S> {
      * @see #execute(ParseResults)
      * @see #execute(StringReader, Object)
      */
-    public int execute(final String input, final S source) throws CommandSyntaxException {
+    public Value execute(final String input, final S source) throws CommandSyntaxException {
         return execute(new StringReader(input), source);
     }
 
@@ -165,7 +167,7 @@ public class CommandDispatcher<S> {
      *
      * @param input a command string to parse &amp; execute
      * @param source a custom "source" object, usually representing the originator of this command
-     * @return a numeric result from a "command" that was performed
+     * @return a result from a "command" that was performed
      * @throws CommandSyntaxException if the command failed to parse or execute
      * @throws RuntimeException if the command failed to execute and was not handled gracefully
      * @see #parse(String, Object)
@@ -173,7 +175,7 @@ public class CommandDispatcher<S> {
      * @see #execute(ParseResults)
      * @see #execute(String, Object)
      */
-    public int execute(final StringReader input, final S source) throws CommandSyntaxException {
+    public Value execute(final StringReader input, final S source) throws CommandSyntaxException {
         final ParseResults<S> parse = parse(input, source);
         return execute(parse);
     }
@@ -196,7 +198,7 @@ public class CommandDispatcher<S> {
      * results than this method will return, especially when a command forks.</p>
      *
      * @param parse the result of a successful {@link #parse(StringReader, Object)}
-     * @return a numeric result from a "command" that was performed.
+     * @return a result from a "command" that was performed.
      * @throws CommandSyntaxException if the command failed to parse or execute
      * @throws RuntimeException if the command failed to execute and was not handled gracefully
      * @see #parse(String, Object)
@@ -204,7 +206,7 @@ public class CommandDispatcher<S> {
      * @see #execute(String, Object)
      * @see #execute(StringReader, Object)
      */
-    public int execute(final ParseResults<S> parse) throws CommandSyntaxException {
+    public Value execute(final ParseResults<S> parse) throws CommandSyntaxException {
         if (parse.getReader().canRead()) {
             if (parse.getExceptions().size() == 1) {
                 throw parse.getExceptions().values().iterator().next();
@@ -216,7 +218,7 @@ public class CommandDispatcher<S> {
         }
 
         boolean setResult = false;
-        int result = 0;
+        Value result = Value.FAIL;
         int successfulForks = 0;
         boolean forked = false;
         boolean foundCommand = false;
@@ -252,7 +254,7 @@ public class CommandDispatcher<S> {
                                     }
                                 }
                             } catch (final CommandSyntaxException ex) {
-                                consumer.onCommandComplete(context, false, 0);
+                                consumer.onCommandComplete(context, false, Value.FAIL);
                                 if (!forked) {
                                     throw ex;
                                 }
@@ -262,7 +264,7 @@ public class CommandDispatcher<S> {
                 } else if (context.getCommand() != null) {
                     foundCommand = true;
                     try {
-                        final int value = context.getCommand().run(context);
+                        final Value value = context.getCommand().run(context);
                         if(setResult && !forked) {
                             // TODO: Should this be a different type of exception?
                             throw CommandSyntaxException.BUILT_IN_EXCEPTIONS.dispatcherMultipleResult().createWithContext(context.getInput(), context.getRange());
@@ -272,7 +274,7 @@ public class CommandDispatcher<S> {
                         consumer.onCommandComplete(context, true, value);
                         successfulForks++;
                     } catch (final CommandSyntaxException ex) {
-                        consumer.onCommandComplete(context, false, 0);
+                        consumer.onCommandComplete(context, false, Value.FAIL);
                         if (!forked) {
                             throw ex;
                         }
@@ -285,11 +287,11 @@ public class CommandDispatcher<S> {
         }
 
         if (!foundCommand) {
-            consumer.onCommandComplete(original, false, 0);
+            consumer.onCommandComplete(original, false, Value.FAIL);
             throw CommandSyntaxException.BUILT_IN_EXCEPTIONS.dispatcherUnknownCommand().createWithContext(parse.getReader());
         }
 
-        return forked ? successfulForks : result;
+        return forked ? new IntValue(successfulForks) : result;
     }
 
     /**

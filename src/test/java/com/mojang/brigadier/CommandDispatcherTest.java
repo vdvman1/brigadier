@@ -8,6 +8,7 @@ import com.mojang.brigadier.context.CommandContext;
 import com.mojang.brigadier.context.CommandContextBuilder;
 import com.mojang.brigadier.exceptions.CommandSyntaxException;
 import com.mojang.brigadier.tree.LiteralCommandNode;
+import com.mojang.brigadier.value.IntValue;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -43,7 +44,7 @@ public class CommandDispatcherTest {
     @Before
     public void setUp() throws Exception {
         subject = new CommandDispatcher<>();
-        when(command.run(any())).thenReturn(42);
+        when(command.run(any())).thenReturn(new IntValue(42));
     }
 
     private static StringReader inputWithOffset(final String input, final int offset) {
@@ -168,7 +169,7 @@ public class CommandDispatcherTest {
     @Test
     public void testExecuteSubcommand() throws Exception {
         final Command<Object> subCommand = mock(Command.class);
-        when(subCommand.run(any())).thenReturn(100);
+        when(subCommand.run(any())).thenReturn(new IntValue(100));
 
         subject.register(literal("foo").then(
             literal("a")
@@ -206,7 +207,7 @@ public class CommandDispatcherTest {
     @Test
     public void testExecuteAmbiguiousParentSubcommand() throws Exception {
         final Command<Object> subCommand = mock(Command.class);
-        when(subCommand.run(any())).thenReturn(100);
+        when(subCommand.run(any())).thenReturn(new IntValue(100));
 
         subject.register(
             literal("test")
@@ -232,7 +233,7 @@ public class CommandDispatcherTest {
     @Test
     public void testExecuteAmbiguiousParentSubcommandViaRedirect() throws Exception {
         final Command<Object> subCommand = mock(Command.class);
-        when(subCommand.run(any())).thenReturn(100);
+        when(subCommand.run(any())).thenReturn(new IntValue(100));
 
         final LiteralCommandNode<Object> real = subject.register(
             literal("test")

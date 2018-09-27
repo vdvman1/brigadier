@@ -5,6 +5,7 @@ package com.mojang.brigadier.benchmarks;
 
 import com.mojang.brigadier.CommandDispatcher;
 import com.mojang.brigadier.tree.LiteralCommandNode;
+import com.mojang.brigadier.value.IntValue;
 import org.openjdk.jmh.annotations.Benchmark;
 import org.openjdk.jmh.annotations.BenchmarkMode;
 import org.openjdk.jmh.annotations.Mode;
@@ -28,58 +29,58 @@ public class ParsingBenchmarks {
             literal("a")
                 .then(
                     literal("1")
-                        .then(literal("i").executes(c -> 0))
-                        .then(literal("ii").executes(c -> 0))
+                        .then(literal("i").executes(c -> IntValue.ZERO))
+                        .then(literal("ii").executes(c -> IntValue.ZERO))
                 )
                 .then(
                     literal("2")
-                        .then(literal("i").executes(c -> 0))
-                        .then(literal("ii").executes(c -> 0))
+                        .then(literal("i").executes(c -> IntValue.ZERO))
+                        .then(literal("ii").executes(c -> IntValue.ZERO))
                 )
         );
-        subject.register(literal("b").then(literal("1").executes(c -> 0)));
-        subject.register(literal("c").executes(c -> 0));
-        subject.register(literal("d").requires(s -> false).executes(c -> 0));
+        subject.register(literal("b").then(literal("1").executes(c -> IntValue.ZERO)));
+        subject.register(literal("c").executes(c -> IntValue.ZERO));
+        subject.register(literal("d").requires(s -> false).executes(c -> IntValue.ZERO));
         subject.register(
             literal("e")
-                .executes(c -> 0)
+                .executes(c -> IntValue.ZERO)
                 .then(
                     literal("1")
-                        .executes(c -> 0)
-                        .then(literal("i").executes(c -> 0))
-                        .then(literal("ii").executes(c -> 0))
+                        .executes(c -> IntValue.ZERO)
+                        .then(literal("i").executes(c -> IntValue.ZERO))
+                        .then(literal("ii").executes(c -> IntValue.ZERO))
                 )
         );
         subject.register(
             literal("f")
                 .then(
                     literal("1")
-                        .then(literal("i").executes(c -> 0))
-                        .then(literal("ii").executes(c -> 0).requires(s -> false))
+                        .then(literal("i").executes(c -> IntValue.ZERO))
+                        .then(literal("ii").executes(c -> IntValue.ZERO).requires(s -> false))
                 )
                 .then(
                     literal("2")
-                        .then(literal("i").executes(c -> 0).requires(s -> false))
-                        .then(literal("ii").executes(c -> 0))
+                        .then(literal("i").executes(c -> IntValue.ZERO).requires(s -> false))
+                        .then(literal("ii").executes(c -> IntValue.ZERO))
                 )
         );
         subject.register(
             literal("g")
-                .executes(c -> 0)
-                .then(literal("1").then(literal("i").executes(c -> 0)))
+                .executes(c -> IntValue.ZERO)
+                .then(literal("1").then(literal("i").executes(c -> IntValue.ZERO)))
         );
         final LiteralCommandNode<Object> h = subject.register(
             literal("h")
-                .executes(c -> 0)
-                .then(literal("1").then(literal("i").executes(c -> 0)))
-                .then(literal("2").then(literal("i").then(literal("ii").executes(c -> 0))))
-                .then(literal("3").executes(c -> 0))
+                .executes(c -> IntValue.ZERO)
+                .then(literal("1").then(literal("i").executes(c -> IntValue.ZERO)))
+                .then(literal("2").then(literal("i").then(literal("ii").executes(c -> IntValue.ZERO))))
+                .then(literal("3").executes(c -> IntValue.ZERO))
         );
         subject.register(
             literal("i")
-                .executes(c -> 0)
-                .then(literal("1").executes(c -> 0))
-                .then(literal("2").executes(c -> 0))
+                .executes(c -> IntValue.ZERO)
+                .then(literal("1").executes(c -> IntValue.ZERO))
+                .then(literal("2").executes(c -> IntValue.ZERO))
         );
         subject.register(
             literal("j")
