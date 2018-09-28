@@ -25,6 +25,7 @@ public interface Value {
         return toByte(1);
     }
 
+    // TODO: Should this not have scale?
     default char toChar(double scale) throws CommandSyntaxException {
         throw CommandSyntaxException.BUILT_IN_EXCEPTIONS.incompatibleTypes().create(typeName(), CharValue.TypeName());
     }
