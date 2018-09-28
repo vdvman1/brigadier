@@ -19,7 +19,7 @@ public class StringValue implements Value {
     // TODO: Should this not be implemented?
     @Override
     public boolean toBoolean() {
-        return toInt(1) > 0;
+        return value.length() > 0;
     }
 
     @Override
