@@ -22,47 +22,48 @@ public class BooleanValue implements Value {
     }
 
     @Override
-    public byte toByte() {
-        return (byte)(value ? 1 : 0);
+    public byte toByte(double scale) {
+        return (byte) toDouble(scale);
     }
 
+    // Boolean intentionally ignores scale when converting to char
     @Override
-    public char toChar() {
+    public char toChar(double scale) {
         return value ? '1' : '0';
     }
 
     @Override
-    public short toShort() {
-        return toByte();
+    public short toShort(double scale) {
+        return (short) toDouble(scale);
     }
 
     @Override
-    public int toInt() {
-        return toByte();
+    public int toInt(double scale) {
+        return (int) toDouble(scale);
     }
 
     @Override
-    public long toLong() {
-        return toByte();
+    public long toLong(double scale) {
+        return (long) toDouble(scale);
     }
 
     @Override
-    public float toFloat() {
-        return toByte();
+    public float toFloat(double scale) {
+        return (float) toDouble(scale);
     }
 
     @Override
-    public double toDouble() {
-        return toByte();
+    public double toDouble(double scale) {
+        return value ? scale : 0;
     }
 
     @Override
     public String toString() {
-        return String.valueOf(toChar());
+        return String.valueOf(toChar(1));
     }
 
     @Override
     public int hashCode() {
-        return toByte();
+        return Boolean.hashCode(value);
     }
 }

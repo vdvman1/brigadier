@@ -19,40 +19,40 @@ public class LongCharValue implements Value {
     }
 
     @Override
-    public byte toByte() {
-        return (byte)value;
+    public byte toByte(double scale) {
+        return (byte)toDouble(scale);
     }
 
     @Override
-    public char toChar() {
-        return (char)value;
+    public char toChar(double scale) {
+        return (char)toDouble(scale);
     }
 
     @Override
-    public short toShort() {
-        return (short)value;
+    public short toShort(double scale) {
+        return (short)toDouble(scale);
     }
 
     @Override
-    public int toInt() {
-        return value;
+    public int toInt(double scale) {
+        return (int) toDouble(scale);
     }
 
     @Override
-    public long toLong() {
-        return value;
-    }
-
-    // TODO: Should this not be implemented?
-    @Override
-    public float toFloat() {
-        return value;
+    public long toLong(double scale) {
+        return (long) toDouble(scale);
     }
 
     // TODO: Should this not be implemented?
     @Override
-    public double toDouble() {
-        return value;
+    public float toFloat(double scale) {
+        return (float) toDouble(scale);
+    }
+
+    // TODO: Should this not be implemented?
+    @Override
+    public double toDouble(double scale) {
+        return value * scale;
     }
 
     @Override

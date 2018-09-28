@@ -16,47 +16,47 @@ public class CharValue implements Value {
         return TypeName();
     }
 
-    // TODO: Should this not be implemented
+    // TODO: Should this not be implemented?
     @Override
     public boolean toBoolean() {
         return value != 0;
     }
 
     @Override
-    public byte toByte() {
-        return (byte)value;
-    }
-
-    @Override
-    public char toChar() {
+    public char toChar(double scale) {
         return value;
     }
 
     @Override
-    public short toShort() {
-        return (short)value;
+    public byte toByte(double scale) {
+        return (byte) toDouble(scale);
     }
 
     @Override
-    public int toInt() {
-        return value;
+    public short toShort(double scale) {
+        return (short) toDouble(scale);
     }
 
     @Override
-    public long toLong() {
-        return value;
+    public int toInt(double scale) {
+        return (int) toDouble(scale);
+    }
+
+    @Override
+    public long toLong(double scale) {
+        return (long) toDouble(scale);
     }
 
     // TODO: Should this not be implemented?
     @Override
-    public float toFloat() {
-        return value;
+    public float toFloat(double scale) {
+        return (float) toDouble(scale);
     }
 
     // TODO: Should this not be implemented?
     @Override
-    public double toDouble() {
-        return value;
+    public double toDouble(double scale) {
+        return value * scale;
     }
 
     @Override

@@ -27,37 +27,7 @@ public class DoubleValue extends NumberValue {
     }
 
     @Override
-    public byte toByte() {
-        return (byte) value;
-    }
-
-    @Override
-    public char toChar() {
-        return (char) value;
-    }
-
-    @Override
-    public short toShort() {
-        return (short) value;
-    }
-
-    @Override
-    public int toInt() {
-        return (int) value;
-    }
-
-    @Override
-    public long toLong() {
-        return (long) value;
-    }
-
-    @Override
-    public float toFloat() {
-        return (float)value;
-    }
-
-    @Override
-    public double toDouble() {
-        return value;
+    public double toDouble(double scale) {
+        return value * scale;
     }
 }

@@ -17,32 +17,60 @@ public interface Value {
         throw CommandSyntaxException.BUILT_IN_EXCEPTIONS.incompatibleTypes().create(typeName(), BooleanValue.TypeName());
     }
 
-    default byte toByte() throws CommandSyntaxException {
+    default byte toByte(double scale) throws CommandSyntaxException {
         throw CommandSyntaxException.BUILT_IN_EXCEPTIONS.incompatibleTypes().create(typeName(), ByteValue.TypeName());
     }
 
-    default char toChar() throws CommandSyntaxException {
+    default byte toByte() throws CommandSyntaxException {
+        return toByte(1);
+    }
+
+    default char toChar(double scale) throws CommandSyntaxException {
         throw CommandSyntaxException.BUILT_IN_EXCEPTIONS.incompatibleTypes().create(typeName(), CharValue.TypeName());
     }
 
-    default short toShort() throws CommandSyntaxException {
+    default char toChar() throws CommandSyntaxException {
+        return toChar(1);
+    }
+
+    default short toShort(double scale) throws CommandSyntaxException {
         throw CommandSyntaxException.BUILT_IN_EXCEPTIONS.incompatibleTypes().create(typeName(), ShortValue.TypeName());
     }
 
-    default int toInt() throws CommandSyntaxException {
+    default short toShort() throws CommandSyntaxException {
+        return toShort(1);
+    }
+
+    default int toInt(double scale) throws CommandSyntaxException {
         throw CommandSyntaxException.BUILT_IN_EXCEPTIONS.incompatibleTypes().create(typeName(), IntValue.TypeName());
     }
 
-    default long toLong() throws CommandSyntaxException {
+    default int toInt() throws CommandSyntaxException {
+        return toInt(1);
+    }
+
+    default long toLong(double scale) throws CommandSyntaxException {
         throw CommandSyntaxException.BUILT_IN_EXCEPTIONS.incompatibleTypes().create(typeName(), LongValue.TypeName());
     }
 
-    default float toFloat() throws CommandSyntaxException {
+    default long toLong() throws CommandSyntaxException {
+        return toLong(1);
+    }
+
+    default float toFloat(double scale) throws CommandSyntaxException {
         throw CommandSyntaxException.BUILT_IN_EXCEPTIONS.incompatibleTypes().create(typeName(), FloatValue.TypeName());
     }
 
-    default double toDouble() throws CommandSyntaxException {
+    default float toFloat() throws CommandSyntaxException {
+        return toFloat(1);
+    }
+
+    default double toDouble(double scale) throws CommandSyntaxException {
         throw CommandSyntaxException.BUILT_IN_EXCEPTIONS.incompatibleTypes().create(typeName(), DoubleValue.TypeName());
+    }
+
+    default double toDouble() throws CommandSyntaxException {
+        return toDouble(1);
     }
 
     default Map<Value, Value> toMap() throws CommandSyntaxException {

@@ -44,41 +44,41 @@ public class MapValue implements Value {
     }
 
     @Override
-    public byte toByte() {
-        return (byte)toInt();
+    public byte toByte(double scale) {
+        return (byte)toInt(1);
     }
 
     // TODO: Should this not be implemented?
     @Override
-    public char toChar() {
-        return (char) toInt();
+    public char toChar(double scale) {
+        return (char) toInt(1);
     }
 
     @Override
-    public short toShort() {
-        return (short) toInt();
+    public short toShort(double scale) {
+        return (short) toInt(1);
     }
 
     @Override
-    public int toInt() {
+    public int toInt(double scale) {
         return value.size();
     }
 
     @Override
-    public long toLong() {
-        return toInt();
+    public long toLong(double scale) {
+        return toInt(1);
     }
 
     // TODO: Should this not be implemented?
     @Override
-    public float toFloat() {
-        return toInt();
+    public float toFloat(double scale) {
+        return toInt(1);
     }
 
     // TODO: Should this not be implemented?
     @Override
-    public double toDouble() {
-        return toInt();
+    public double toDouble(double scale) {
+        return toInt(1);
     }
 
     @Override

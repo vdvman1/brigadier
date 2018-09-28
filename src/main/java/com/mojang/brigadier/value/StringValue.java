@@ -19,44 +19,45 @@ public class StringValue implements Value {
     // TODO: Should this not be implemented?
     @Override
     public boolean toBoolean() {
-        return toInt() > 0;
+        return toInt(1) > 0;
     }
 
     @Override
-    public byte toByte() {
-        return (byte)toInt();
-    }
-
-    @Override
-    public char toChar() {
-        return (char) toInt();
-    }
-
-    @Override
-    public short toShort() {
-        return (short) toInt();
-    }
-
-    @Override
-    public int toInt() {
-        return value.length();
-    }
-
-    @Override
-    public long toLong() {
-        return toInt();
+    public byte toByte(double scale) {
+        return (byte)toDouble(scale);
     }
 
     // TODO: Should this not be implemented?
     @Override
-    public float toFloat() {
-        return toInt();
+    public char toChar(double scale) {
+        return (char) toDouble(scale);
+    }
+
+    @Override
+    public short toShort(double scale) {
+        return (short) toDouble(scale);
+    }
+
+    @Override
+    public int toInt(double scale) {
+        return (int) toDouble(scale);
+    }
+
+    @Override
+    public long toLong(double scale) {
+        return (long) toDouble(scale);
     }
 
     // TODO: Should this not be implemented?
     @Override
-    public double toDouble() {
-        return toInt();
+    public float toFloat(double scale) {
+        return (float) toDouble(scale);
+    }
+
+    // TODO: Should this not be implemented?
+    @Override
+    public double toDouble(double scale) {
+        return value.length() * scale;
     }
 
     @Override
