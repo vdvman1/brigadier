@@ -1,70 +1,62 @@
 package com.mojang.brigadier.value;
 
-import java.util.List;
-import java.util.Map;
+public class LongCharValue implements Value {
+    private int value;
 
-public class ListValue implements Value {
-    private List<Value> value;
-
-    public ListValue(List<Value> value) {
+    public LongCharValue(int value) {
         this.value = value;
     }
 
+    // TODO: Should this not be implemented
     @Override
     public boolean toBoolean() {
-        return !value.isEmpty();
+        return value != 0;
     }
 
     @Override
     public byte toByte() {
-        return (byte)toInt();
+        return (byte)value;
     }
 
-    // TODO: Should this not be implemented?
     @Override
     public char toChar() {
-        return (char) toInt();
+        return (char)value;
     }
 
     @Override
     public short toShort() {
-        return (short) toInt();
+        return (short)value;
     }
 
     @Override
     public int toInt() {
-        return value.size();
+        return value;
     }
 
     @Override
     public long toLong() {
-        return toInt();
+        return value;
     }
 
     // TODO: Should this not be implemented?
     @Override
     public float toFloat() {
-        return toInt();
+        return value;
     }
 
     // TODO: Should this not be implemented?
     @Override
     public double toDouble() {
-        return toInt();
-    }
-
-    @Override
-    public String toString() {
-        return value.toString();
-    }
-
-    @Override
-    public List<Value> toList() {
         return value;
     }
 
     @Override
-    public Map<Value, Value> toMap() {
-        return MapValue.listToMap(value);
+    public String toString() {
+        return new String(Character.toChars(value));
+    }
+
+    @Override
+    public int hashCode() {
+        return Integer.hashCode(value);
     }
 }

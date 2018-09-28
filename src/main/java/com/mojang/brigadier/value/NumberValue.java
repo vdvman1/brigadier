@@ -20,4 +20,9 @@ public abstract class NumberValue implements Value {
     public int hashCode() {
         return toNumber().hashCode();
     }
+
+    @Override
+    public String toString() {
+        return toNumber().toString();
+    }
 }

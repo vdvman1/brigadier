@@ -1,30 +1,22 @@
 package com.mojang.brigadier.value;
 
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.function.Function;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
-public class MapValue implements Value {
-    private Map<Value, Value> value;
+public class StringValue implements Value {
+    private String value;
 
-    public MapValue(Map<Value, Value> value) {
-        this.value = value;
+    public StringValue(String value) {
+        this.value = value == null ? "" : value;
     }
 
-    public MapValue(Map.Entry<Value, Value> entry) {
-        value = new HashMap<>();
-        value.put(entry.getKey(), entry.getValue());
-    }
-
-    public static Map<Value, Value> listToMap(List<Value> values) {
-        return IntStream.range(0, values.size()).boxed().collect(Collectors.toMap(LongCharValue::new, values::get));
-    }
-
+    // TODO: Should this not be implemented
     @Override
     public boolean toBoolean() {
-        return !value.isEmpty();
+        return toInt() > 0;
     }
 
     @Override
@@ -32,7 +24,6 @@ public class MapValue implements Value {
         return (byte)toInt();
     }
 
-    // TODO: Should this not be implemented?
     @Override
     public char toChar() {
         return (char) toInt();
@@ -45,7 +36,7 @@ public class MapValue implements Value {
 
     @Override
     public int toInt() {
-        return value.size();
+        return value.length();
     }
 
     @Override
@@ -67,7 +58,7 @@ public class MapValue implements Value {
 
     @Override
     public String toString() {
-        return value.toString();
+        return value;
     }
 
     @Override
@@ -76,12 +67,12 @@ public class MapValue implements Value {
     }
 
     @Override
-    public Map<Value, Value> toMap() {
-        return value;
+    public List<Value> toList() {
+        return value.chars().mapToObj(LongCharValue::new).collect(Collectors.toList());
     }
 
     @Override
-    public List<Value> toList() {
-        return value.entrySet().stream().map(MapValue::new).collect(Collectors.toList());
+    public Map<Value, Value> toMap() {
+        return MapValue.listToMap(toList());
     }
 }
