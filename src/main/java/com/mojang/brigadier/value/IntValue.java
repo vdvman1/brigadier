@@ -8,9 +8,18 @@ public class IntValue extends NumberValue {
         this.value = value;
     }
 
+    public static String TypeName() {
+        return "int";
+    }
+
     @Override
     protected Number toNumber() {
         return value;
+    }
+
+    @Override
+    public String typeName() {
+        return TypeName();
     }
 
     @Override

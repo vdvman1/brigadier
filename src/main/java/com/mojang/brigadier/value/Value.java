@@ -1,59 +1,55 @@
 package com.mojang.brigadier.value;
 
+import com.mojang.brigadier.exceptions.CommandSyntaxException;
+
 import java.util.List;
 import java.util.Map;
+
+// TODO: Is there a better way to get the typename for the destination?
 
 public interface Value {
     Value SUCCESS = new BooleanValue(true);
     Value FAIL = new BooleanValue(false);
 
-    default boolean toBoolean() {
-        // TODO: Throw a CommandSyntaxException
-        throw new UnsupportedOperationException();
+    String typeName();
+
+    default boolean toBoolean() throws CommandSyntaxException {
+        throw CommandSyntaxException.BUILT_IN_EXCEPTIONS.incompatibleTypes().create(typeName(), BooleanValue.TypeName());
     }
 
-    default byte toByte() {
-        // TODO: Throw a CommandSyntaxException
-        throw new UnsupportedOperationException();
+    default byte toByte() throws CommandSyntaxException {
+        throw CommandSyntaxException.BUILT_IN_EXCEPTIONS.incompatibleTypes().create(typeName(), ByteValue.TypeName());
     }
 
-    default char toChar() {
-        // TODO: Throw a CommandSyntaxException
-        throw new UnsupportedOperationException();
+    default char toChar() throws CommandSyntaxException {
+        throw CommandSyntaxException.BUILT_IN_EXCEPTIONS.incompatibleTypes().create(typeName(), CharValue.TypeName());
     }
 
-    default short toShort() {
-        // TODO: Throw a CommandSyntaxException
-        throw new UnsupportedOperationException();
+    default short toShort() throws CommandSyntaxException {
+        throw CommandSyntaxException.BUILT_IN_EXCEPTIONS.incompatibleTypes().create(typeName(), ShortValue.TypeName());
     }
 
-    default int toInt() {
-        // TODO: Throw a CommandSyntaxException
-        throw new UnsupportedOperationException();
+    default int toInt() throws CommandSyntaxException {
+        throw CommandSyntaxException.BUILT_IN_EXCEPTIONS.incompatibleTypes().create(typeName(), IntValue.TypeName());
     }
 
-    default long toLong() {
-        // TODO: Throw a CommandSyntaxException
-        throw new UnsupportedOperationException();
+    default long toLong() throws CommandSyntaxException {
+        throw CommandSyntaxException.BUILT_IN_EXCEPTIONS.incompatibleTypes().create(typeName(), LongValue.TypeName());
     }
 
-    default float toFloat() {
-        // TODO: Throw a CommandSyntaxException
-        throw new UnsupportedOperationException();
+    default float toFloat() throws CommandSyntaxException {
+        throw CommandSyntaxException.BUILT_IN_EXCEPTIONS.incompatibleTypes().create(typeName(), FloatValue.TypeName());
     }
 
-    default double toDouble() {
-        // TODO: Throw a CommandSyntaxException
-        throw new UnsupportedOperationException();
+    default double toDouble() throws CommandSyntaxException {
+        throw CommandSyntaxException.BUILT_IN_EXCEPTIONS.incompatibleTypes().create(typeName(), DoubleValue.TypeName());
     }
 
-    default Map<Value, Value> toMap() {
-        // TODO: Throw a CommandSyntaxException
-        throw new UnsupportedOperationException();
+    default Map<Value, Value> toMap() throws CommandSyntaxException {
+        throw CommandSyntaxException.BUILT_IN_EXCEPTIONS.incompatibleTypes().create(typeName(), MapValue.TypeName());
     }
 
-    default List<Value> toList() {
-        // TODO: Throw a CommandSyntaxException
-        throw new UnsupportedOperationException();
+    default List<Value> toList() throws CommandSyntaxException {
+        throw CommandSyntaxException.BUILT_IN_EXCEPTIONS.incompatibleTypes().create(typeName(), ListValue.TypeName());
     }
 }

@@ -7,6 +7,15 @@ public class BooleanValue implements Value {
         this.value = value;
     }
 
+    public static String TypeName() {
+        return "boolean";
+    }
+
+    @Override
+    public String typeName() {
+        return TypeName();
+    }
+
     @Override
     public boolean toBoolean() {
         return value;

@@ -22,6 +22,8 @@ public interface BuiltInExceptionProvider {
 
     DynamicCommandExceptionType literalIncorrect();
 
+    Dynamic2CommandExceptionType incompatibleTypes();
+
     SimpleCommandExceptionType readerExpectedStartOfQuote();
 
     SimpleCommandExceptionType readerExpectedEndOfQuote();

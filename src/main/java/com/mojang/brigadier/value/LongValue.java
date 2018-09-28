@@ -7,9 +7,18 @@ public class LongValue extends NumberValue {
         this.value = value;
     }
 
+    public static String TypeName() {
+        return "long";
+    }
+
     @Override
     protected Number toNumber() {
         return value;
+    }
+
+    @Override
+    public String typeName() {
+        return TypeName();
     }
 
     @Override

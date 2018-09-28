@@ -7,6 +7,15 @@ public class CharValue implements Value {
         this.value = value;
     }
 
+    public static String TypeName() {
+        return "char";
+    }
+
+    @Override
+    public String typeName() {
+        return TypeName();
+    }
+
     // TODO: Should this not be implemented
     @Override
     public boolean toBoolean() {

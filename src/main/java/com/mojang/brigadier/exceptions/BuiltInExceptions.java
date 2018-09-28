@@ -20,6 +20,8 @@ public class BuiltInExceptions implements BuiltInExceptionProvider {
 
     private static final DynamicCommandExceptionType LITERAL_INCORRECT = new DynamicCommandExceptionType(expected -> new LiteralMessage("Expected literal " + expected));
 
+    private static final Dynamic2CommandExceptionType INCOMPATIBLE_TYPES = new Dynamic2CommandExceptionType((sourceType, destinationType) -> new LiteralMessage("Unable to convert " + sourceType + " to " + destinationType));
+
     private static final SimpleCommandExceptionType READER_EXPECTED_START_OF_QUOTE = new SimpleCommandExceptionType(new LiteralMessage("Expected quote to start a string"));
     private static final SimpleCommandExceptionType READER_EXPECTED_END_OF_QUOTE = new SimpleCommandExceptionType(new LiteralMessage("Unclosed quoted string"));
     private static final DynamicCommandExceptionType READER_INVALID_ESCAPE = new DynamicCommandExceptionType(character -> new LiteralMessage("Invalid escape sequence '" + character + "' in quoted string"));
@@ -84,6 +86,11 @@ public class BuiltInExceptions implements BuiltInExceptionProvider {
     @Override
     public DynamicCommandExceptionType literalIncorrect() {
         return LITERAL_INCORRECT;
+    }
+
+    @Override
+    public Dynamic2CommandExceptionType incompatibleTypes() {
+        return INCOMPATIBLE_TYPES;
     }
 
     @Override

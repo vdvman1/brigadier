@@ -266,8 +266,7 @@ public class CommandDispatcher<S> {
                     try {
                         final Value value = context.getCommand().run(context);
                         if(setResult && !forked) {
-                            // TODO: Should this be a different type of exception?
-                            throw CommandSyntaxException.BUILT_IN_EXCEPTIONS.dispatcherMultipleResult().createWithContext(context.getInput(), context.getRange());
+                            throw CommandSyntaxException.BUILT_IN_EXCEPTIONS.dispatcherMultipleResult().create();
                         }
                         result = value;
                         setResult = true;

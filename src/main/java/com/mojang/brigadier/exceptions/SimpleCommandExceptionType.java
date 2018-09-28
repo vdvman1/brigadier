@@ -22,10 +22,6 @@ public class SimpleCommandExceptionType implements CommandExceptionType {
         return new CommandSyntaxException(this, message, reader.getString(), reader.getCursor());
     }
 
-    public CommandSyntaxException createWithContext(final String input, final StringRange range) {
-        return new CommandSyntaxException(this, message, input, range.getEnd());
-    }
-
     @Override
     public String toString() {
         return message.getString();

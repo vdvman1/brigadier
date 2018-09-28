@@ -22,6 +22,22 @@ public class MapValue implements Value {
         return IntStream.range(0, values.size()).boxed().collect(Collectors.toMap(LongCharValue::new, values::get));
     }
 
+    public static String TypeName() {
+        /*
+            TODO: What should this be called?
+            Some possibilities:
+              - object
+              - map
+              - compound
+        */
+        return "object";
+    }
+
+    @Override
+    public String typeName() {
+        return TypeName();
+    }
+
     @Override
     public boolean toBoolean() {
         return !value.isEmpty();

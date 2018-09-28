@@ -10,6 +10,15 @@ public class ListValue implements Value {
         this.value = value;
     }
 
+    public static String TypeName() {
+        return "list";
+    }
+
+    @Override
+    public String typeName() {
+        return TypeName();
+    }
+
     @Override
     public boolean toBoolean() {
         return !value.isEmpty();

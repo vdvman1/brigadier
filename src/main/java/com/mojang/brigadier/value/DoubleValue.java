@@ -7,9 +7,18 @@ public class DoubleValue extends NumberValue {
         this.value = value;
     }
 
+    public static String TypeName() {
+        return "double";
+    }
+
     @Override
     protected Number toNumber() {
         return value;
+    }
+
+    @Override
+    public String typeName() {
+        return TypeName();
     }
 
     @Override

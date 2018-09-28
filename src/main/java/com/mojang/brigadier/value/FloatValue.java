@@ -7,9 +7,18 @@ public class FloatValue extends NumberValue {
         this.value = value;
     }
 
+    public static String TypeName() {
+        return "float";
+    }
+
     @Override
     protected Number toNumber() {
         return value;
+    }
+
+    @Override
+    public String typeName() {
+        return TypeName();
     }
 
     @Override
