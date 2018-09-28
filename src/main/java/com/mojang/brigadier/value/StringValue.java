@@ -2,9 +2,7 @@ package com.mojang.brigadier.value;
 
 import java.util.List;
 import java.util.Map;
-import java.util.function.Function;
 import java.util.stream.Collectors;
-import java.util.stream.IntStream;
 
 public class StringValue implements Value {
     private String value;
@@ -13,7 +11,12 @@ public class StringValue implements Value {
         this.value = value == null ? "" : value;
     }
 
-    // TODO: Should this not be implemented
+    @Override
+    public String typeName() {
+        return "string";
+    }
+
+    // TODO: Should this not be implemented?
     @Override
     public boolean toBoolean() {
         return toInt() > 0;

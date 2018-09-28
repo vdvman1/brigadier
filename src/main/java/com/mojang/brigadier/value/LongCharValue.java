@@ -7,6 +7,11 @@ public class LongCharValue implements Value {
         this.value = value;
     }
 
+    @Override
+    public String typeName() {
+        return "UTF-32 char";
+    }
+
     // TODO: Should this not be implemented
     @Override
     public boolean toBoolean() {
